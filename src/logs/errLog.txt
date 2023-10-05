@@ -1,0 +1,1 @@
+20231004	21:15:00	7b4c7ad3-2aa7-4313-9195-10e9fa30d62a	Error: ENOENT: no such file or directory, stat 'C:\Users\Nicolas\Workspace\afex-seleccion-proyect-back\views\404.html'

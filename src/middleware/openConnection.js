@@ -12,6 +12,7 @@ const openConnection = async (req, res, next) => {
     req.dbClient = client;
 
     // Continue processing the request
+    console.log(`connected to MongoDB`);
     next();
   } catch (err) {
     console.error("Error connecting to MongoDB:", err);
