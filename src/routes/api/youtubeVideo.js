@@ -6,6 +6,7 @@ const createYoutubeVideoRouter = ({ YoutubeVideoModel }) => {
   const youtubeVideoController = new YoutubeVideoController({
     YoutubeVideoModel,
   });
+
   router
     .route("/")
     .get(youtubeVideoController.getAll)

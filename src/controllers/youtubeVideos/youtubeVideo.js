@@ -2,6 +2,7 @@ const {
   validatePartialYoutubeVideo,
   validateYoutubeVideo,
 } = require("../../schemas/youtubeVideo");
+const youtubeApi = require("../../api/youtube/youtube.js");
 
 class YoutubeVideoController {
   constructor({ YoutubeVideoModel }) {
@@ -21,7 +22,9 @@ class YoutubeVideoController {
   };
 
   create = async (req, res) => {
-    const result = validateYoutubeVideo(req.body);
+    const { videoId } = req.body;
+    const input = await youtubeApi.get(videoId);
+    const result = validateYoutubeVideo(input);
 
     if (!result.success) {
       // 422 Unprocessable Entity
