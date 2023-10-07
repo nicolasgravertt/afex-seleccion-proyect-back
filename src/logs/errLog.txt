@@ -1,1 +1,7 @@
 20231004	21:15:00	7b4c7ad3-2aa7-4313-9195-10e9fa30d62a	Error: ENOENT: no such file or directory, stat 'C:\Users\Nicolas\Workspace\afex-seleccion-proyect-back\views\404.html'
+20231006	19:26:05	315d2e40-9c7a-4a65-ad94-69f1dc919299	Error: Not allowed by CORS
+20231006	19:26:05	9307624c-097e-4096-bc57-0649f8d5c642	Error: Not allowed by CORS
+20231006	19:26:05	e1ac767c-ce1c-4b57-8893-e15e1223f352	Error: Not allowed by CORS
+20231006	19:27:21	addb7bdf-26f3-48b7-b869-b1eed5fa6db9	Error: Not allowed by CORS
+20231006	19:27:21	c6669f92-058d-4307-8444-7e889acb3450	Error: Not allowed by CORS
+20231006	19:27:21	7640e3c3-e38a-418e-9352-9aa5e1d6020d	Error: Not allowed by CORS

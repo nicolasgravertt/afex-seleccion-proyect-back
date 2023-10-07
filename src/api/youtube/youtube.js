@@ -1,9 +1,9 @@
 const axios = require("axios");
 const { youtubeApiConf } = require("../axios/axios");
 
-const get = async (videoId) => {
+const get = async (youtubeId) => {
   try {
-    const config = youtubeApiConf(videoId);
+    const config = youtubeApiConf(youtubeId);
     const { data } = await axios.request(config);
     const { items } = data;
     const { id, snippet } = items[0];

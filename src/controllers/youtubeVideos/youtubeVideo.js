@@ -22,8 +22,8 @@ class YoutubeVideoController {
   };
 
   create = async (req, res) => {
-    const { videoId } = req.body;
-    const input = await youtubeApi.get(videoId);
+    const { youtubeId } = req.body;
+    const input = await youtubeApi.get(youtubeId);
     const result = validateYoutubeVideo(input);
 
     if (!result.success) {
