@@ -23,17 +23,29 @@ class YoutubeVideoController {
 
   create = async (req, res) => {
     const { youtubeId } = req.body;
+
     const input = await youtubeApi.get(youtubeId);
+
+    if (!input) {
+      // 404 Not found
+      return res.status(404).json("Video no existe");
+    }
+
     const result = validateYoutubeVideo(input);
 
     if (!result.success) {
-      // 422 Unprocessable Entity
+      // 400 Bad Request
       return res.status(400).json({ error: JSON.parse(result.error.message) });
     }
 
     const newYoutubeVideo = await this.YoutubeVideoModel.create({
       input: result.data,
     });
+
+    if (newYoutubeVideo.error) {
+      // 409 Conflict
+      return res.status(409).json("Video ya existe");
+    }
 
     res.status(201).json(newYoutubeVideo);
   };

@@ -28,6 +28,8 @@ class YoutubeVideoModel {
 
   static async create({ input }) {
     const collection = await connect();
+    const exist = await collection.findOne({ videoUrl: input.videoUrl });
+    if (exist) return { error: "Video ya existe" };
 
     const { insertedId } = await collection.insertOne(input);
 

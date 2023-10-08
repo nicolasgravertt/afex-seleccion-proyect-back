@@ -7,7 +7,7 @@ const youtubeApiConf = (videoId) => {
 
   parsedUrl.query.id = videoId;
   parsedUrl.query.key = process.env.YOUTUBE_API_KEY;
-  parsedUrl.query.part = "snippet";
+  parsedUrl.query.part = "snippet,contentDetails";
 
   const modifiedUrlString = url.format({
     protocol: parsedUrl.protocol,

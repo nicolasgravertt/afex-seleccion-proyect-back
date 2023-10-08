@@ -22,6 +22,10 @@ const youtubeVideoSchema = z.object({
     .url({
       message: "Not a valid URL",
     }),
+  videoDuration: z.string({
+    invalid_type_error: "Video duration must be a string",
+    required_error: "Video duration is required.",
+  }),
 });
 
 function validateYoutubeVideo(input) {
