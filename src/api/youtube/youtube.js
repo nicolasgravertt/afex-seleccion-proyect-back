@@ -1,23 +1,25 @@
 const axios = require("axios");
+const moment = require("moment");
 const { youtubeApiConf } = require("../axios/axios");
 
 const transformISO8601 = (time) => {
-  const iso8601Duration = time; // Example ISO 8601 duration string
-  const hourRegex = /PT(\d+)H(\d+)M(\d+)S/;
-  const hourMatch = iso8601Duration.match(hourRegex);
-  if (hourMatch) {
-    const hours = parseInt(hourMatch[1], 10);
-    const minutes = parseInt(hourMatch[2], 10);
-    const seconds = parseInt(hourMatch[3], 10);
-    return `${hours}:${minutes}:${seconds}`;
+  const duration = moment.duration(time);
+  const hours = duration.hours();
+  const minutes = duration.minutes();
+  const seconds = duration.seconds();
+
+  let formattedString;
+  if (hours === 0) {
+    formattedString = `${minutes.toString().padStart(2, "0")}:${seconds
+      .toString()
+      .padStart(2, "0")}`;
+  } else {
+    formattedString = `${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
   }
-  const minuteRegex = /PT(\d+)M(\d+)S/;
-  const minuteMatch = iso8601Duration.match(minuteRegex);
-  if (minuteMatch) {
-    const minutes = parseInt(minuteMatch[1], 10);
-    const seconds = parseInt(minuteMatch[2], 10);
-    return `${minutes}:${seconds}`;
-  }
+
+  return formattedString;
 };
 
 const get = async (youtubeId) => {
