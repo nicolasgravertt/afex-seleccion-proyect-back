@@ -1,9 +1,10 @@
 const { MongoClient } = require("mongodb");
+require("dotenv").config();
 
 const openConnection = async (req, res, next) => {
   try {
     // Connect to MongoDB
-    const client = await MongoClient.connect("mongodb://127.0.0.1:27017", {
+    const client = await MongoClient.connect(process.env.MONGO_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
