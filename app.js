@@ -5,10 +5,11 @@ const cors = require("cors");
 const corsOptions = require("./src/config/corsOptions");
 const { logger } = require("./src/middleware/logEvents");
 const errorHandler = require("./src/middleware/errorHandler");
-// const verifyJWT = require("./src/middleware/verifyJWT");
+const verifyJWT = require("./src/middleware/verifyJWT");
 const cookieParser = require("cookie-parser");
 const credentials = require("./src/middleware/credentials");
 const openConnection = require("./src/middleware/openConnection");
+const initializeData = require("./src/db/InitializeData");
 // const closeConnection = require("./src/middleware/closeConnection");
 const PORT = process.env.PORT || 3500;
 
@@ -39,25 +40,28 @@ const createApp = ({ YoutubeVideoModel }) => {
   app.use(openConnection);
 
   // auth routes
-  // app.use("/", require("./src/routes/root"));
-  // app.use("/register", require("./src/routes/register"));
-  // app.use("/auth", require("./src/routes/auth"));
-  // app.use("/refresh", require("./src/routes/refresh"));
-  // app.use("/logout", require("./src/routes/logout"));
+  app.use("/", require("./src/routes/root"));
+  app.use("/register", require("./src/routes/register"));
+  app.use("/auth", require("./src/routes/auth"));
+  app.use("/refresh", require("./src/routes/refresh"));
+  app.use("/logout", require("./src/routes/logout"));
 
-  // app.use(verifyJWT);
+  app.use(verifyJWT);
 
   // general routes
   app.use(
     "/youtube",
     createYoutubeVideoRouter({ YoutubeVideoModel: YoutubeVideoModel })
   );
+
   // Close Connection
   // app.use(closeConnection);
 
   app.use(errorHandler);
 
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  initializeData().then(() => {
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  });
 };
 
 module.exports = { createApp };

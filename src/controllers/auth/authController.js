@@ -1,6 +1,7 @@
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { connect } = require("../../db/ConnectMongo");
 
 const handleLogin = async (req, res) => {
   const { user, pwd } = req.body;
@@ -9,8 +10,7 @@ const handleLogin = async (req, res) => {
       .status(400)
       .json({ message: "Username and password are required." });
 
-  const db = req.dbClient.db("UserManagement");
-  const collection = db.collection("User");
+  const collection = await connect("Users");
 
   const [foundUser] = await collection.find({ username: user }).toArray();
 
@@ -27,7 +27,7 @@ const handleLogin = async (req, res) => {
     const refreshToken = jwt.sign(
       { username: foundUser.username },
       process.env.REFRESH_TOKEN_SECRET,
-      { expiresIn: "1d" }
+      { expiresIn: "60s" }
     );
     // Saving refreshToken with current user
     collection.findOneAndUpdate(

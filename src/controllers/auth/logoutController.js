@@ -1,12 +1,12 @@
+const { connect } = require("../../db/ConnectMongo");
+
 const handleLogout = async (req, res) => {
   // On client, also delete the accessToken
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.status(204).json({ message: "No content" }); //No content
-  const refreshToken = cookies.jwt;
-  console.log(cookies.jwt);
 
-  const db = req.dbClient.db("UserManagement");
-  const collection = db.collection("User");
+  const refreshToken = cookies.jwt;
+  const collection = await connect("Users");
 
   // Is refreshToken in db?
   const [foundUser] = await collection

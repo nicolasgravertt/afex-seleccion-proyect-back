@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const { connect } = require("../../db/ConnectMongo");
 
 const handleNewUser = async (req, res) => {
   const { user, pwd } = req.body;
@@ -7,9 +8,7 @@ const handleNewUser = async (req, res) => {
     return res
       .status(400)
       .json({ message: "Username and password are required." });
-
-  const db = req.dbClient.db("UserManagement");
-  const collection = db.collection("User");
+  const collection = await connect("Users");
   // check for duplicate usernames in the db
   const [duplicate] = await collection.find({ username: user }).toArray();
 
